@@ -1,0 +1,16 @@
+# Dependencias: se reinstalan con `npm install`, nunca se versionan
+node_modules
+
+# Resultado de la compilación
+dist
+
+# Archivos del sistema operativo y del editor
+.DS_Store
+Thumbs.db
+.vite
+*.local
+.vscode/*
+!.vscode/extensions.json
+
+# Caché incremental de TypeScript
+*.tsbuildinfo
