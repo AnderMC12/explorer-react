@@ -6,10 +6,11 @@ import { ErrorState } from '../molecules/ErrorState';
 
 /**
  * ORGANISMO · CountryGrid
+ *
  * Rejilla adaptable de tarjetas y responsable de los tres estados de la lista.
  *
- * La distribución crece con el ancho disponible: una columna en móvil, dos en
- * tablet, tres en escritorio y cuatro en pantallas amplias.
+ * La distribución crece con el ancho disponible: una columna en móvil, dos a
+ * partir de 640 px, tres en escritorio y cuatro en pantallas amplias.
  */
 export type GridStatus = 'loading' | 'ready' | 'error';
 
@@ -19,12 +20,12 @@ export interface CountryGridProps {
   query: string;
   region: string;
   errorMessage: string;
+  onSelect: (code: string) => void;
   onRetry: () => void;
   onReset: () => void;
 }
 
-const GRID =
-  'grid gap-md grid-cols-1 sm:grid-cols-2 desktop:grid-cols-3 wide:grid-cols-4';
+const GRID = 'grid gap-md grid-cols-1 compact:grid-cols-2 desktop:grid-cols-3 wide:grid-cols-4';
 
 export function CountryGrid({
   status,
@@ -32,6 +33,7 @@ export function CountryGrid({
   query,
   region,
   errorMessage,
+  onSelect,
   onRetry,
   onReset,
 }: CountryGridProps) {
@@ -63,9 +65,15 @@ export function CountryGrid({
 
   return (
     <ul className={GRID}>
-      {countries.map((country) => (
+      {countries.map((country, index) => (
         <li key={country.code}>
-          <CountryCard country={country} />
+          {/* La animación solo escalona las primeras tarjetas: más allá se
+              vuelve ruido y retrasa el contenido sin aportar nada. */}
+          <CountryCard
+            country={country}
+            onSelect={onSelect}
+            delay={index < 12 ? index * 35 : 0}
+          />
         </li>
       ))}
     </ul>

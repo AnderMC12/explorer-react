@@ -1,7 +1,9 @@
 /**
  * MOLÉCULA · NavLinks
+ *
  * Lista de enlaces de navegación. Se reutiliza tal cual en la barra de
- * escritorio y dentro del menú móvil: el mismo contenido, distinta disposición.
+ * escritorio y dentro del menú móvil: el mismo contenido, distinta
+ * disposición.
  */
 export interface NavLink {
   href: string;
@@ -16,15 +18,17 @@ export interface NavLinksProps {
 }
 
 export function NavLinks({ links, direction = 'row', onNavigate }: NavLinksProps) {
+  const column = direction === 'column';
+
   return (
-    <ul className={direction === 'row' ? 'flex items-center gap-xs' : 'flex flex-col gap-xs'}>
+    <ul className={column ? 'flex flex-col gap-xs' : 'flex items-center gap-xs'}>
       {links.map((link) => (
         <li key={link.href}>
           <a
             href={link.href}
             onClick={onNavigate}
-            className={`inline-flex min-h-11 items-center rounded-field border border-border-strong bg-surface px-md text-label text-text-primary no-underline transition-colors hover:bg-surface-raised ${
-              direction === 'column' ? 'w-full' : ''
+            className={`inline-flex min-h-11 items-center rounded-field px-md text-label text-ink no-underline transition-colors duration-150 hover:bg-brand-soft ${
+              column ? 'w-full border border-line-strong bg-surface' : ''
             }`}
           >
             {link.label}

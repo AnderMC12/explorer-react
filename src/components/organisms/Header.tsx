@@ -5,7 +5,8 @@ import { NavLinks, type NavLink } from '../molecules/NavLinks';
 
 /**
  * ORGANISMO · Header
- * Reúne la marca, la navegación y el control del menú móvil.
+ *
+ * Reúne la marca, la navegación y el control del menú de pantallas pequeñas.
  *
  * No guarda si el menú está abierto: ese dato vive en App, porque es estado
  * compartido de la aplicación. El organismo recibe `isMenuOpen` y pide los
@@ -19,19 +20,28 @@ export interface HeaderProps {
 }
 
 export function Header({ links, isMenuOpen, onToggleMenu, onCloseMenu }: HeaderProps) {
-  // Escape cierra el menú: es lo que espera quien navega con teclado.
+  // Escape cierra el menú y el fondo deja de desplazarse mientras está
+  // abierto: es lo que espera quien navega con teclado o con el pulgar.
   useEffect(() => {
     if (!isMenuOpen) return;
-    const onKeyDown = (event: KeyboardEvent) => {
+
+    const onKeyDown = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') onCloseMenu();
     };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
   }, [isMenuOpen, onCloseMenu]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border-strong bg-surface">
-      <div className="app-shell flex h-14 items-center justify-between gap-md tablet:h-16">
+    <header className="glass-bar sticky top-0 z-40 border-b border-line">
+      <div className="app-shell flex h-16 items-center justify-between gap-md">
         <Logo />
 
         {/* Navegación de escritorio */}
@@ -54,15 +64,22 @@ export function Header({ links, isMenuOpen, onToggleMenu, onCloseMenu }: HeaderP
       {/* Menú desplegable. Se desmonta al cerrarse para que su contenido no
           quede accesible por teclado estando oculto. */}
       {isMenuOpen && (
-        <nav
-          id="menu-movil"
-          aria-label="Navegación principal"
-          className="border-t border-border bg-surface tablet:hidden"
-        >
-          <div className="app-shell py-md">
-            <NavLinks links={links} direction="column" onNavigate={onCloseMenu} />
-          </div>
-        </nav>
+        <>
+          <div
+            className="fixed inset-0 top-16 z-30 bg-ink/25 tablet:hidden"
+            aria-hidden="true"
+            onClick={onCloseMenu}
+          />
+          <nav
+            id="menu-movil"
+            aria-label="Navegación principal"
+            className="relative z-40 border-t border-line bg-surface shadow-raised tablet:hidden"
+          >
+            <div className="app-shell py-md">
+              <NavLinks links={links} direction="column" onNavigate={onCloseMenu} />
+            </div>
+          </nav>
+        </>
       )}
     </header>
   );

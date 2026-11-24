@@ -3,6 +3,7 @@ import { TextInput } from '../atoms/TextInput';
 
 /**
  * MOLÉCULA · SearchField
+ *
  * Une tres átomos —icono, campo de texto y botón de borrar— en un control con
  * un propósito. Sigue sin tener estado propio: recibe el valor y devuelve los
  * cambios al padre mediante callbacks.
@@ -15,9 +16,9 @@ export interface SearchFieldProps {
 
 export function SearchField({ value, onChange, onClear }: SearchFieldProps) {
   return (
-    <div className="flex h-12 w-full items-center gap-sm rounded-field border border-border-strong bg-surface px-md">
-      <span className="shrink-0 text-text-secondary">
-        <Icon name="search" size={18} />
+    <div className="field">
+      <span className="shrink-0 text-ink-muted">
+        <Icon name="search" size={19} />
       </span>
 
       <TextInput
@@ -35,7 +36,7 @@ export function SearchField({ value, onChange, onClear }: SearchFieldProps) {
         <button
           type="button"
           onClick={onClear}
-          className="grid size-6 shrink-0 place-items-center rounded-pill text-text-secondary"
+          className="grid size-7 shrink-0 place-items-center rounded-pill text-ink-muted transition-colors hover:bg-brand-soft hover:text-ink"
         >
           <span className="sr-only">Borrar la búsqueda</span>
           <Icon name="x-circle" size={18} />

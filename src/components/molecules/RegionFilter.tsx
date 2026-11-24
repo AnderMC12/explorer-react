@@ -3,6 +3,7 @@ import { Select, type SelectOption } from '../atoms/Select';
 
 /**
  * MOLÉCULA · RegionFilter
+ *
  * Desplegable de región con su indicador visual. La opción «todas» usa la
  * cadena vacía, que en la función de filtrado significa «sin filtro».
  */
@@ -19,7 +20,10 @@ export function RegionFilter({ value, regions, onChange }: RegionFilterProps) {
   ];
 
   return (
-    <div className="flex h-12 w-full items-center gap-sm rounded-field border border-border-strong bg-surface px-md">
+    <div className="field">
+      <span className="shrink-0 text-ink-muted">
+        <Icon name="compass" size={19} />
+      </span>
       <Select
         id="filtrar-region"
         value={value}
@@ -27,7 +31,7 @@ export function RegionFilter({ value, regions, onChange }: RegionFilterProps) {
         label="Filtrar por región"
         options={options}
       />
-      <span className="pointer-events-none shrink-0 text-text-secondary">
+      <span className="pointer-events-none shrink-0 text-ink-muted">
         <Icon name="chevron-down" size={18} />
       </span>
     </div>
