@@ -2,21 +2,23 @@ import type { ReactNode } from 'react';
 
 /**
  * ÁTOMO · Button
- * Un solo control, con sus variantes de estilo. No decide qué hace al pulsarse:
- * recibe el callback desde fuera mediante `onClick`.
+ *
+ * Un solo control, con sus variantes de estilo. No decide qué ocurre al
+ * pulsarse: recibe el comportamiento desde fuera mediante `onClick`.
  */
 export interface ButtonProps {
   children: ReactNode;
   onClick?: () => void;
-  variant?: 'primary' | 'quiet';
+  variant?: 'primary' | 'quiet' | 'ghost';
   type?: 'button' | 'submit';
   disabled?: boolean;
   className?: string;
 }
 
 const VARIANTS: Record<NonNullable<ButtonProps['variant']>, string> = {
-  primary: 'bg-primary text-on-primary hover:bg-text-primary/90',
-  quiet: 'border border-border-strong bg-surface text-text-primary hover:bg-surface-raised',
+  primary: 'bg-brand text-on-brand shadow-card hover:bg-brand-deep',
+  quiet: 'border border-line-strong bg-surface text-ink hover:bg-brand-soft',
+  ghost: 'text-brand hover:bg-brand-soft',
 };
 
 export function Button({
@@ -32,7 +34,7 @@ export function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`inline-flex min-h-11 items-center justify-center gap-sm rounded-field px-md text-button transition-colors disabled:pointer-events-none disabled:bg-disabled disabled:text-disabled-text ${VARIANTS[variant]} ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center gap-sm rounded-field px-md text-button transition-colors duration-150 disabled:pointer-events-none disabled:bg-disabled disabled:text-disabled-ink ${VARIANTS[variant]} ${className}`}
     >
       {children}
     </button>

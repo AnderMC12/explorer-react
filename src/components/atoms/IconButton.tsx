@@ -2,9 +2,10 @@ import { Icon, type IconName } from './Icon';
 
 /**
  * ÁTOMO · IconButton
- * Botón sin texto visible. El nombre accesible es obligatorio en las props,
- * de modo que el tipado impide crear un botón que un lector de pantalla no
- * pueda anunciar.
+ *
+ * Botón sin texto visible. El nombre accesible es obligatorio en las props, de
+ * modo que el propio sistema de tipos impide crear un botón que un lector de
+ * pantalla no pueda anunciar.
  */
 export interface IconButtonProps {
   icon: IconName;
@@ -31,7 +32,7 @@ export function IconButton({
       aria-label={label}
       aria-expanded={expanded}
       aria-controls={controls}
-      className={`grid size-11 place-items-center rounded-field border border-border-strong bg-surface text-text-primary transition-colors hover:bg-surface-raised ${className}`}
+      className={`grid size-11 place-items-center rounded-field border border-line-strong bg-surface text-ink transition-colors duration-150 hover:bg-brand-soft ${className}`}
     >
       <Icon name={icon} size={22} />
     </button>

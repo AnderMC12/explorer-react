@@ -1,8 +1,9 @@
 /**
  * ÁTOMO · TextInput
+ *
  * Campo de texto controlado: el valor vive fuera y el componente avisa de cada
- * cambio con `onChange`. No guarda estado propio, de modo que el padre es
- * siempre la única fuente de verdad.
+ * cambio con `onChange`. No guarda estado propio, de modo que el padre sigue
+ * siendo la única fuente de verdad.
  */
 export interface TextInputProps {
   id: string;
@@ -34,7 +35,7 @@ export function TextInput({
         placeholder={placeholder}
         autoComplete="off"
         enterKeyHint="search"
-        className="min-w-0 flex-1 bg-transparent text-card text-text-primary outline-none placeholder:text-text-secondary"
+        className="min-w-0 flex-1 bg-transparent text-card font-normal text-ink outline-none placeholder:font-normal placeholder:text-ink-muted"
       />
     </>
   );

@@ -1,5 +1,6 @@
 /**
  * ÁTOMO · Select
+ *
  * Desplegable nativo. Se eligió el elemento nativo y no uno simulado porque
  * funciona con teclado, con lector de pantalla y con el selector propio de
  * cada sistema móvil sin escribir una línea extra.
@@ -27,7 +28,7 @@ export function Select({ id, value, onChange, label, options }: SelectProps) {
         id={id}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="min-w-0 flex-1 appearance-none bg-transparent text-card text-text-primary outline-none"
+        className="min-w-0 flex-1 cursor-pointer appearance-none bg-transparent text-card font-normal text-ink outline-none"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
